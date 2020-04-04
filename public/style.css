@@ -106,6 +106,66 @@ li{
 		background: #ccffcc;
 	}
 
+	#loginHeading{
+		text-align: center;
+	}
+
+	#loginHeading h1{
+		font-size: 40px;
+	}
+
+	#intro{
+		width: 100%;
+		font-family: "Raleway", Helvetica, sans-serif;
+		background-color: #e6ffe6;
+		padding-left: 100px;
+		border-radius: 20px;
+		margin-bottom: 50px;
+	}
+
+	#intro span{
+		font-family: "Raleway", Helvetica, sans-serif;
+		font-size: 0.7em;
+		font-weight: 400;
+		letter-spacing: 0.25em;
+		line-height: 2.5;
+		margin-top: -1em;
+		text-transform: uppercase;
+		margin-top: 0;
+		margin-right: 40px;
+	}
+
+	#intro p{
+		margin-bottom: 0;
+	}
+
+	#loginSec{
+		width: 70%;
+		margin: 0 auto;
+	}
+
+	#feedHead{
+		height: 70px;
+	/* background-color: white; */
+		text-align: center;
+		font-size: 40px;
+		margin-bottom: 40px;
+	}
+
+	#postName{
+		font-size: 40px;
+		display: block;
+		font-family: "Raleway", Helvetica, sans-serif;
+	}
+
+	#postMessage{
+		font-family: "Raleway", Helvetica, sans-serif;
+	}
+
+	.post header{
+		margin-bottom: 100px;
+	}
+
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
 			-moz-animation: none !important;
 			-webkit-animation: none !important;
@@ -2355,6 +2415,12 @@ li{
 				width: 100%;
 			}
 
+			#postSec{
+
+			}
+
+
+
 /* List */
 
 	ol {
@@ -3422,6 +3488,7 @@ li{
 		overflow: hidden;
 		position: relative;
 		width: 4em;
+		border-radius: 50px;
 	}
 
 		#intro .logo:before {
@@ -3429,7 +3496,7 @@ li{
 			background-position: top left;
 			background-repeat: no-repeat;
 			background-size: 100% 100%;
-			content: '';
+			/* content: ''; */
 			display: block;
 			height: 100%;
 			left: 0;
@@ -3442,6 +3509,7 @@ li{
 			display: block;
 			margin-left: -0.25em;
 			width: 4.5em;
+
 		}
 
 	#intro header h2 {

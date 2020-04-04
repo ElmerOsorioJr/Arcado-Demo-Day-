@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 
 <html>
 	<head>
@@ -14,10 +15,10 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="/feed">Arcado</a></h1>
+						<h1><a href="index.html">Arcado</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="/feed">Home</a></li>
+								<li><a href="/profile">My Profile</a></li>
 								<li><a href="/login">Log Out</a></li>
 							</ul>
 						</nav>
@@ -86,47 +87,66 @@
 					</section>
 
 				<!-- Main -->
-        <div id="main">
+					<div id="main">
 
-					<section id="intro">
-						<a href="#" class="logo"><img src="images/portfolio.png" alt="" /></a>
-						<header>
-							<h2>@ElmerOsorioJr</h2>
-							<p>Poet | Software Engineer | Boston MA </p>
-							<span> 300 Followers </span><span> 300 Following </span>
-						</header>
-					</section>
+						<!-- Post -->
+						<!-- Post -->
+				      <!-- <article class="post">
+				        <header>
+				          <div class="title" id="postSec">
+				          <h2>Create A Post</h2>
+				        <% if (user.local.email) { %>
+				          <form action="/messages" method="POST">
+				            <input type="text" value="<%= user.local.email %>" name="name">
+				            <textarea name="msg" cols="40" rows="5" placeholder="Today Im Feeling... because..."></textarea>
+				            <button type="submit">Submit</button>
+				          </form>
+				        </div>
+				        <% } %>
+				        </header>
+				        <ul class="messages">
+				        <% for(var i=0; i<messages.length; i++) {%>
+				          <% if (user.local.email == messages[i].name) { %>
+				          <li class="message">
+				            <span><%= messages[i].name %></span>
+				            <span><%= messages[i].msg %></span>
+				            <span><%= messages[i].thumbUp %></span>
+				            <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+				            <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+				            <span><i class="fa fa-trash" aria-hidden="true"></i></span>
+				          </li>
+				        <% } %>
+				          <% } %>
+				        </ul>
+				      </article> -->
+							<section id="feedHead">
+								<h2>Newsfeed</h2>
+							</section>
+							<article class="post" id="postFeed">
+								<header>
+									<div class="title">
+										<h2><a href="single.html">Magna sed adipiscing</a></h2>
+										<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
+									</div>
+									<div class="meta">
+										<time class="published" datetime="2015-11-01">November 1, 2015</time>
+										<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>
+									</div>
+								</header>
+								<a href="single.html" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
+								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+								<footer>
+									<ul class="actions">
+										<li><a href="single.html" class="button large">Continue Reading</a></li>
+									</ul>
+									<ul class="stats">
+										<li><a href="#">General</a></li>
+										<li><a href="#" class="icon solid fa-heart">28</a></li>
+										<li><a href="#" class="icon solid fa-comment">128</a></li>
+									</ul>
+								</footer>
+							</article>
 
-    <!-- Post -->
-      <article class="post">
-        <header>
-          <div class="title" id="postSec">
-          <h2>Create A Post</h2>
-        <% if (user.local.email) { %>
-          <form action="/messages" method="POST">
-            <input type="text" value="<%= user.local.email %>" name="name">
-            <textarea name="msg" cols="40" rows="5" placeholder="Today Im Feeling... because..."></textarea>
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-        <% } %>
-        </header>
-        <ul class="messages">
-        <% for(var i=0; i<messages.length; i++) {%>
-          <% if (user.local.email == messages[i].name) { %>
-          <li class="message">
-            <span id="postName"><%= messages[i].name %></span>
-            <span id="postMessage"><%= messages[i].msg %></span>
-            <span><%= messages[i].thumbUp %></span>
-            <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-            <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-            <span><i class="fa fa-trash" aria-hidden="true"></i></span>
-          </li>
-        <% } %>
-          <% } %>
-        </ul>
-
-      </article>
 						<!-- Post -->
 							<article class="post">
 								<header>
@@ -138,7 +158,6 @@
 										<time class="published" datetime="2015-10-25">October 25, 2015</time>
 										<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>
 									</div>
-
 								</header>
 								<a href="single.html" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
 								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper.</p>
@@ -180,7 +199,6 @@
 								</footer>
 							</article>
 
-						<!-- Post -->
 
 						<!-- Pagination -->
 							<ul class="actions pagination">
@@ -194,17 +212,17 @@
 					<section id="sidebar">
 
 						<!-- Intro -->
-							<!-- <section id="intro">
-								<a href="#" class="logo"><img src="images/portfolio.png" alt="" /></a>
+							<section id="intro">
+								<a href="/profile" class="logo"><img src="images/portfolio.png" alt="" /></a>
 								<header>
 									<h2>Arcado</h2>
-									<p>A Space For All Creatives To Share Their Art</p>
+									<p> A Space For All Creatives To Share Their Art</a></p>
 								</header>
-							</section> -->
+							</section>
 
 						<!-- Mini Posts -->
 							<section>
-								<h3>Pinned Posts</h3>
+								<h3>Posts You've Recently Interacted With</h3>
 								<div class="mini-posts">
 
 									<!-- Mini Post -->
@@ -332,8 +350,6 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-      <script type="text/javascript" src="main.js">
 
-      </script>
 	</body>
 </html>

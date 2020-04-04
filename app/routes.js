@@ -9,9 +9,19 @@ module.exports = function(app, passport, db) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        db.collection('messages').find().toArray((err, result) => {
+        db.collection('data').find().toArray((err, result) => {
           if (err) return console.log(err)
           res.render('profile.ejs', {
+            user : req.user,
+            messages: result
+          })
+        })
+    });
+
+    app.get('/feed', isLoggedIn, function(req, res) {
+        db.collection('data').find().toArray((err, result) => {
+          if (err) return console.log(err)
+          res.render('feed.ejs', {
             user : req.user,
             messages: result
           })
@@ -21,13 +31,13 @@ module.exports = function(app, passport, db) {
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {
         req.logout();
-        res.redirect('/');
+        res.redirect('/login');
     });
 
 // message board routes ===============================================================
 
     app.post('/messages', (req, res) => {
-      db.collection('messages').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
+      db.collection('data').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
         res.redirect('/profile')
@@ -35,7 +45,7 @@ module.exports = function(app, passport, db) {
     })
 
     app.put('/messages', (req, res) => {
-      db.collection('messages')
+      db.collection('data')
       .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
         $set: {
           thumbUp:req.body.thumbUp + 1
@@ -51,7 +61,7 @@ module.exports = function(app, passport, db) {
 
     app.put('/thumbDown', (req, res) => {
   console.log(req.body)
-  db.collection('messages')
+  db.collection('data')
   .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
     $set: {
       thumbUp:req.body.thumbUp - 1
@@ -66,7 +76,7 @@ module.exports = function(app, passport, db) {
 })
 
     app.delete('/messages', (req, res) => {
-      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+      db.collection('data').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
