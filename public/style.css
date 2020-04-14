@@ -162,6 +162,10 @@ li{
 		font-family: "Raleway", Helvetica, sans-serif;
 	}
 
+	#postIMG{
+		height: 250px;
+	}
+
 	.post header{
 		margin-bottom: 100px;
 	}

@@ -2,42 +2,30 @@
 
 // set up ======================================================================
 // get all the tools we need
-var express  = require('express');
-var app      = express();
-var port     = process.env.PORT || 8000;
-const MongoClient = require('mongodb').MongoClient
-var mongoose = require('mongoose');
-var passport = require('passport');
-var flash    = require('connect-flash');
+const express  = require('express');
+const app      = express();
+const port     = process.env.PORT || 8000;
+const mongoose = require('mongoose');
+const passport = require('passport');
+const flash    = require('connect-flash');
+const multer = require('multer');
+const ObjectId = require('mongodb').ObjectID
 
-var morgan       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
+const morgan       = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser   = require('body-parser');
+const session      = require('express-session');
 
-var configDB = require('./config/database.js');
-
-var db
+const configDB = require('./config/database.js');
 
 // configuration ===============================================================
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useUnifiedTopology', true);
+// connect to our database
 mongoose.connect(configDB.url, (err, database) => {
   if (err) return console.log(err)
-  db = database
-  require('./app/routes.js')(app, passport, db);
-}); // connect to our database
-
-//app.listen(port, () => {
-    // MongoClient.connect(configDB.url, { useNewUrlParser: true }, (error, client) => {
-    //     if(error) {
-    //         throw error;
-    //     }
-    //     db = client.db(configDB.dbName);
-    //     console.log("Connected to `" + configDB.dbName + "`!");
-    //     require('./app/routes.js')(app, passport, db);
-    // });
-//});
-
-require('./config/passport')(passport); // pass passport for configuration
+  connect(database)
+});
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
@@ -49,8 +37,9 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
+require('./config/passport')(passport); // pass passport for configuration
 app.use(session({
-    secret: 'rcbootcamp2019a', // session secret
+    secret: 'rcbootcamp2019c', // session secret
     resave: true,
     saveUninitialized: true
 }));
@@ -60,7 +49,8 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 // routes ======================================================================
-//require('./app/routes.js')(app, passport, db); // load our routes and pass in our app and fully configured passport
+const connect = (db) => require('./app/routes.js')(app, passport, db, multer, ObjectId); // load our routes and pass in our app and fully configured passport
+
 
 // launch ======================================================================
 app.listen(port);

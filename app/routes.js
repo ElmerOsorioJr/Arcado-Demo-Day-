@@ -1,4 +1,15 @@
-module.exports = function(app, passport, db) {
+module.exports = function(app, passport, db, multer, ObjectId) {
+
+
+  var storage = multer.diskStorage({
+      destination: (req, file, cb) => {
+        cb(null, 'public/images/uploads')
+      },
+      filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + ".png")
+      }
+  });
+  var upload = multer({storage: storage});
 
 // normal routes ===============================================================
 
@@ -9,11 +20,18 @@ module.exports = function(app, passport, db) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
+      let uId = ObjectId(req.session.passport.user)
+
         db.collection('data').find().toArray((err, result) => {
+          console.log(result)
+          db.collection('pictureUpload').find({'posterId': uId}).toArray((err, result) => {
+            console.log(result)
           if (err) return console.log(err)
           res.render('profile.ejs', {
             user : req.user,
-            messages: result
+            messages: result,
+            pictureUpload: result
+            })
           })
         })
     });
@@ -43,6 +61,15 @@ module.exports = function(app, passport, db) {
         res.redirect('/profile')
       })
     })
+
+    app.post('/pictureUpload', upload.single('file-to-upload'), (req, res, next) => {
+      let uId = ObjectId(req.session.passport.user)
+      db.collection('pictureUpload').save({posterId: uId, caption: req.body.caption, likes: 0, imgPath: 'images/uploads/' + req.file.filename}, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/profile')
+      })
+    });
 
     app.put('/messages', (req, res) => {
       db.collection('data')
