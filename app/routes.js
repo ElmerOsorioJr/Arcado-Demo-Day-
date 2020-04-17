@@ -21,29 +21,33 @@ module.exports = function(app, passport, db, multer, ObjectId) {
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
       let uId = ObjectId(req.session.passport.user)
-
-        db.collection('data').find().toArray((err, result) => {
-          console.log(result)
+        db.collection('users').find({_id: uId}).toArray((err, userResult) => {
           db.collection('pictureUpload').find({'posterId': uId}).toArray((err, result) => {
-            console.log(result)
           if (err) return console.log(err)
           res.render('profile.ejs', {
             user : req.user,
             messages: result,
-            pictureUpload: result
+            pictureUpload: result,
+            pinnedImage: userResult,
             })
+            console.log("this is userresult", userResult)
+            console.log("pinnedImage")
+
           })
         })
     });
 
     app.get('/feed', isLoggedIn, function(req, res) {
         db.collection('data').find().toArray((err, result) => {
+          db.collection('pictureUpload').find().toArray((err, result) => {
           if (err) return console.log(err)
           res.render('feed.ejs', {
             user : req.user,
-            messages: result
+            messages: result,
+            pictureUpload: result
           })
         })
+      })
     });
 
     // LOGOUT ==============================
@@ -62,23 +66,16 @@ module.exports = function(app, passport, db, multer, ObjectId) {
       })
     })
 
-    app.post('/pictureUpload', upload.single('file-to-upload'), (req, res, next) => {
-      let uId = ObjectId(req.session.passport.user)
-      db.collection('pictureUpload').save({posterId: uId, caption: req.body.caption, likes: 0, imgPath: 'images/uploads/' + req.file.filename}, (err, result) => {
-        if (err) return console.log(err)
-        console.log('saved to database')
-        res.redirect('/profile')
-      })
-    });
 
-    app.put('/messages', (req, res) => {
-      db.collection('data')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-        $set: {
-          thumbUp:req.body.thumbUp + 1
-        }
+    app.put('/pin', (req, res) => {
+      let uId = ObjectId(req.session.passport.user)
+      console.log("pinned image route")
+      console.log(req.body.pinnedImage)
+      db.collection('users')
+      .findOneAndUpdate({_id: uId}, {
+         $push: {favoritePics: req.body.pinnedImage}
       }, {
-        sort: {_id: -1},
+        sort: {_id: 1},
         upsert: true
       }, (err, result) => {
         if (err) return res.send(err)
@@ -86,24 +83,52 @@ module.exports = function(app, passport, db, multer, ObjectId) {
       })
     })
 
-    app.put('/thumbDown', (req, res) => {
-  console.log(req.body)
-  db.collection('data')
-  .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-    $set: {
-      thumbUp:req.body.thumbUp - 1
-    }
-  }, {
-    sort: {_id: -1},
-    upsert: true
-  }, (err, result) => {
-    if (err) return res.send(err)
-    res.send(result)
-  })
-})
 
-    app.delete('/messages', (req, res) => {
-      db.collection('data').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+    app.post('/pictureUpload', upload.single('file-to-upload'), (req, res, next) => {
+      let uId = ObjectId(req.session.passport.user)
+      let userEmail = req.user.local.email
+      db.collection('pictureUpload').save({userEmail: userEmail, posterId: uId, caption: req.body.caption, likes: 0, imgPath: 'images/uploads/' + req.file.filename}, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/profile')
+      })
+    });
+
+    app.put('/likePicture', (req, res) => {
+      db.collection('pictureUpload')
+      .findOneAndUpdate({_id: ObjectId(req.body._id), caption: req.body.caption}, {
+        $set: {
+          likes:req.body.likes + 1
+        }
+      }, {
+        sort: {_id: 1},
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err)
+        res.send(result)
+      })
+    })
+
+    // app.put('/likeProfilePic', (req, res) => {
+    //   console.log(req.body._id)
+    //   console.log(req.body.caption)
+    //   db.collection('pictureUpload')
+    //   .findOneAndUpdate({_id: ObjectId(req.body._id), {
+    //     $set: {
+    //       likes:req.body.likes + 1
+    //     }
+    //   }, {
+    //     sort: {_id: 1},
+    //     upsert: true
+    //   }, (err, result) => {
+    //     if (err) return res.send(err)
+    //     res.send(result)
+    //   })
+    // })
+
+    app.delete('/deletePost', (req, res) => {
+      // console.log(req.body)
+      db.collection('pictureUpload').findOneAndDelete({_id: ObjectId(req.body._id), posterId: ObjectId(req.body.posterId)}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })

@@ -162,8 +162,8 @@ li{
 		font-family: "Raleway", Helvetica, sans-serif;
 	}
 
-	#postIMG{
-		height: 250px;
+	.thumbsUp , .trash , .pin{
+		color: #b3ffb3;
 	}
 
 	.post header{
@@ -2419,8 +2419,12 @@ li{
 				width: 100%;
 			}
 
-			#postSec{
+			#postArticle {
+			  text-align: center;
+			}
 
+			#postCaption{
+			  word-break: break-word;
 			}
 
 
@@ -2625,7 +2629,7 @@ li{
 
 /* Posts */
 
-	ul.posts {
+	/* ul.posts {
 		list-style: none;
 		padding: 0;
 	}
@@ -2664,9 +2668,9 @@ li{
 				width: 4em;
 			}
 
-				ul.posts article .image img {
+				/* ul.posts article .image img {
 					width: 100%;
-				}
+				} */
 
 			ul.posts article header {
 				-moz-flex-grow: 1;
@@ -2693,7 +2697,7 @@ li{
 
 				ul.posts article header > :last-child {
 					margin-bottom: 0;
-				}
+				} */
 
 /* Mini Post */
 

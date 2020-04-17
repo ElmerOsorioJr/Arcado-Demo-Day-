@@ -4,10 +4,14 @@ var bcrypt   = require('bcrypt-nodejs');
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
-
+// ==============
+//  1) HAVE A BUTTON ON PICTUERS THAT CRATES A POST REQUEST THAT IS TIDE TO THE USERID AND MAKES A SEPERATE COLLECTION OF FAVORTIEPICS
+//  2) HAVE A PUT REQUEST TO ADD FAVORTIE PICS TO THE USER COLLECTION IN AN ARRAY
+// ==============
     local            : {
         email        : String,
-        password     : String
+        password     : String,
+        favoritePics : [Object]
     },
     facebook         : {
         id           : String,
