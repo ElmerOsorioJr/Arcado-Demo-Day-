@@ -170,6 +170,11 @@ li{
 		margin-bottom: 100px;
 	}
 
+	.trash{
+		margin-left: 150px;
+		margin-right: 150px;
+	}
+
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
 			-moz-animation: none !important;
 			-webkit-animation: none !important;
@@ -2424,6 +2429,7 @@ li{
 			}
 
 			#postCaption{
+				font-family: "Raleway", Helvetica, sans-serif;
 			  word-break: break-word;
 			}
 

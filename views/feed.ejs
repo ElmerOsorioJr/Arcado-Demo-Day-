@@ -106,14 +106,14 @@
 						</div>
 						<div class="meta">
 							<time class="published" datetime="2015-10-25">October 25, 2015</time>
-							<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/profile.png" alt="" /></a>
+							<a href="#" class="author"><span class="name"><%= pictureUpload[i].userEmail %></span><img src="images/profile.png" alt="" /></a>
 						</div>
 					</header>
 					<a href="<%= pictureUpload[i].imgPath%>" class="image featured"><img id="postIMG" src="<%= pictureUpload[i].imgPath%>" alt="" /></a>
 					<p id="postCaption"><%= pictureUpload[i].caption %></p>
 					<ul class="stats">
 						<span><%= pictureUpload[i].likes %></span>
-						<span class="thumbsUp"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+						<span class="thumbsUp"><i class="fas fa-heart" aria-hidden="true"></i></span>
 						<div data-id="<%= pictureUpload[i]._id %>">
 					</ul>
 				</article>
@@ -176,44 +176,44 @@
 				<div class="mini-posts">
 
 					<!-- Mini Post -->
+					<% for(var i=0; i < user.local.favoritePics.length; i++) {%>
 					<article class="mini-post">
 						<header>
-							<h3><a href="single.html">Vitae sed condimentum</a></h3>
-							<time class="published" datetime="2015-10-20">October 20, 2015</time>
 							<a href="#" class="author"><img src="images/profile.png" alt="" /></a>
 						</header>
-						<a href="single.html" class="image"><img src="images/pic04.jpg" alt="" /></a>
+						<a href="single.html" class="image"><img src="<%= user.local.favoritePics[i]%>" alt="" /></a>
 					</article>
+					<% } %>
 
 					<!-- Mini Post -->
-					<article class="mini-post">
+					<!-- <article class="mini-post">
 						<header>
 							<h3><a href="single.html">Rutrum neque accumsan</a></h3>
 							<time class="published" datetime="2015-10-19">October 19, 2015</time>
 							<a href="#" class="author"><img src="images/profile.png" alt="" /></a>
 						</header>
 						<a href="single.html" class="image"><img src="images/pic05.jpg" alt="" /></a>
-					</article>
+					</article> -->
 
 					<!-- Mini Post -->
-					<article class="mini-post">
+					<!-- <article class="mini-post">
 						<header>
 							<h3><a href="single.html">Odio congue mattis</a></h3>
 							<time class="published" datetime="2015-10-18">October 18, 2015</time>
 							<a href="#" class="author"><img src="images/profile.png" alt="" /></a>
 						</header>
 						<a href="single.html" class="image"><img src="images/pic06.jpg" alt="" /></a>
-					</article>
+					</article> -->
 
 					<!-- Mini Post -->
-					<article class="mini-post">
+					<!-- <article class="mini-post">
 						<header>
 							<h3><a href="single.html">Enim nisl veroeros</a></h3>
 							<time class="published" datetime="2015-10-17">October 17, 2015</time>
 							<a href="#" class="author"><img src="images/profile.png" alt="" /></a>
 						</header>
 						<a href="single.html" class="image"><img src="images/pic07.jpg" alt="" /></a>
-					</article>
+					</article> -->
 
 				</div>
 			</section>

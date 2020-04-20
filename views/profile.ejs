@@ -94,8 +94,8 @@
 				<a href="#" class="logo"><img src="images/profile.png" alt="" /></a>
 				<header>
 					<h2>@<%= user.local.email %></h2>
-					<p>Poet | Software Engineer | Boston MA </p>
-					<span> 300 Followers </span><span> 300 Following </span>
+					<p>Enter Your Bio!</p>
+					<span> 0 Followers </span><span> 0 Following </span>
 				</header>
 			</section>
 
@@ -133,123 +133,79 @@
 						</div>
 						<div class="meta">
 							<time class="published" datetime="2015-10-25">October 25, 2015</time>
-							<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/profile.png" alt="" /></a>
+							<a href="#" class="author"><span class="name"><%= user.local.email %></span><img src="images/profile.png" alt="" /></a>
 						</div>
 					</header>
 					<a href="<%= pictureUpload[i].imgPath%>" class="image featured"><img id="postIMG" src="<%= pictureUpload[i].imgPath%>" alt="" /></a>
 					<p id="postCaption"><%= pictureUpload[i].caption %></p>
 					<ul class="stats">
 						<span><%= pictureUpload[i].likes %></span>
-						<span class="thumbsUp"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+						<span class="thumbsUp"><i class="fas fa-heart" aria-hidden="true"></i></span>
 						<span class="trash"><i class="fa fa-trash" aria-hidden="true"></i></span>
 						<span class="pin"><i class="fas fa-thumbtack" aria-hidden="true"></i></span>
-						<div data-id="<%= pictureUpload[i]._id %>"></div>
+						<div data-id="<%= pictureUpload[i]._id %>">
+
+						</div>
 						<div data-id="<%= pictureUpload[i].posterId %>"></div>
-						<!-- I need to change this to either be an array of image document ID’s (_id) in the user, or an array of user id’s as a property in the image document, and then have that be what’s looped through and loaded into the section showing pinned posts -->
 					</ul>
 				</article>
 				<% } %>
 			</ul>
 			</article>
-			<!-- Post -->
-			<!-- <article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="single.html">Ultricies sed magna euismod enim vitae gravida</a></h2>
-										<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-10-25">October 25, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/profile.png" alt="" /></a>
-									</div>
-
-								</header>
-								<a href="single.html" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper.</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="single.html" class="button large">Continue Reading</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
-									</ul>
-								</footer>
-							</article> -->
-
-			<!-- Pagination -->
-			<!-- <ul class="actions pagination">
-								<li><a href="" class="disabled button large previous">Previous Page</a></li>
-								<li><a href="#" class="button large next">Next Page</a></li>
-							</ul> -->
 
 		</div>
 
 		<!-- Sidebar -->
 		<section id="sidebar">
-
-			<!-- Intro -->
-			<!-- <section id="intro">
-								<a href="#" class="logo"><img src="images/portfolio.png" alt="" /></a>
-								<header>
-									<h2>Arcado</h2>
-									<p>A Space For All Creatives To Share Their Art</p>
-								</header>
-							</section> -->
-
 			<!-- Mini Posts -->
 			<section>
 				<h3> My Pinned Posts</h3>
 				<div class="mini-posts">
 
 					<!-- Mini Post -->
-					<% if (pinnedImage.favoritePic) { %>
-						<% for(let i = 0; i < pinnedImage.favoritePic.length; i++){ %>
+					<% for(var i=0; i < user.local.favoritePics.length; i++) {%>
 					<article class="mini-post">
 						<header>
 							<a href="#" class="author"><img src="images/profile.png" alt="" /></a>
 						</header>
-						<a href="single.html" class="image"><img src="<%= pinnedImage.favoritePic[i]%>" alt="" /></a>
+						<a href="single.html" class="image"><img src="<%= user.local.favoritePics[i]%>" alt="" /></a>
 					</article>
-
-					<% } %>
 					<% } %>
 					<!-- Mini Post -->
-					<article class="mini-post">
+					<!-- <article class="mini-post">
 						<header>
 							<h3><a href="single.html">Rutrum neque accumsan</a></h3>
 							<time class="published" datetime="2015-10-19">October 19, 2015</time>
 							<a href="#" class="author"><img src="images/profile.png" alt="" /></a>
 						</header>
 						<a href="single.html" class="image"><img src="images/pic05.jpg" alt="" /></a>
-					</article>
+					</article> -->
 
 					<!-- Mini Post -->
-					<article class="mini-post">
+					<!-- <article class="mini-post">
 						<header>
 							<h3><a href="single.html">Odio congue mattis</a></h3>
 							<time class="published" datetime="2015-10-18">October 18, 2015</time>
 							<a href="#" class="author"><img src="images/profile.png" alt="" /></a>
 						</header>
 						<a href="single.html" class="image"><img src="images/pic06.jpg" alt="" /></a>
-					</article>
+					</article> -->
 
 					<!-- Mini Post -->
-					<article class="mini-post">
+					<!-- <article class="mini-post">
 						<header>
 							<h3><a href="single.html">Enim nisl veroeros</a></h3>
 							<time class="published" datetime="2015-10-17">October 17, 2015</time>
 							<a href="#" class="author"><img src="images/profile.png" alt="" /></a>
 						</header>
 						<a href="single.html" class="image"><img src="images/pic07.jpg" alt="" /></a>
-					</article>
+					</article> -->
 
 				</div>
 			</section>
 
 			<!-- Posts List -->
-			<section>
+			<!-- <section>
 				<ul class="posts">
 					<li>
 						<article>
@@ -297,7 +253,7 @@
 						</article>
 					</li>
 				</ul>
-			</section>
+			</section> -->
 
 			<!-- About -->
 			<section class="blurb">

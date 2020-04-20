@@ -16,7 +16,7 @@
 ![Arcado Sign Up](public/signUp.png)
 
 ## Login Page
-![Arcado Login](public/app.png)
+![Arcado Login](public/login.png)
 
 ## Profile Page
 ![Arcado Profile](public/profile.png)

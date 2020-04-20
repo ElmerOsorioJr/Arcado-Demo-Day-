@@ -21,18 +21,19 @@ module.exports = function(app, passport, db, multer, ObjectId) {
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
       let uId = ObjectId(req.session.passport.user)
-        db.collection('users').find({_id: uId}).toArray((err, userResult) => {
+      console.log(req.user);
+        db.collection('data').find().toArray((err, result) => {
+          // console.log(result)
           db.collection('pictureUpload').find({'posterId': uId}).toArray((err, result) => {
+            // console.log(result)
           if (err) return console.log(err)
           res.render('profile.ejs', {
             user : req.user,
             messages: result,
             pictureUpload: result,
-            pinnedImage: userResult,
+            pinnedImage: result,
             })
-            console.log("this is userresult", userResult)
-            console.log("pinnedImage")
-
+            console.log("this is result",result)
           })
         })
     });
@@ -69,20 +70,20 @@ module.exports = function(app, passport, db, multer, ObjectId) {
 
     app.put('/pin', (req, res) => {
       let uId = ObjectId(req.session.passport.user)
-      console.log("pinned image route")
+      // console.log("pinned image route")
       console.log(req.body.pinnedImage)
       db.collection('users')
       .findOneAndUpdate({_id: uId}, {
-         $push: {favoritePics: req.body.pinnedImage}
+        // to update in object use quotes with dot notation :)
+         $push: {'local.favoritePics': req.body.pinnedImage}
       }, {
         sort: {_id: 1},
-        upsert: true
+        upsert: false
       }, (err, result) => {
         if (err) return res.send(err)
         res.send(result)
       })
     })
-
 
     app.post('/pictureUpload', upload.single('file-to-upload'), (req, res, next) => {
       let uId = ObjectId(req.session.passport.user)

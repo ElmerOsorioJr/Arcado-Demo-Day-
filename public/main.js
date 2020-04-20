@@ -1,26 +1,22 @@
  var thumbUp = document.getElementsByClassName("thumbsUp");
 var trash = document.getElementsByClassName("trash");
 var pin = document.getElementsByClassName("pin");
-console.log(`this is line 4: ${pin}`)
 
 Array.from(pin).forEach(function(element) {
-  console.log(`this is line 7: ${pin}`)
       element.addEventListener('click', function(){
-        const pinnedImage = document.getElementById("postIMG").src
-        console.log(pinnedImage)
+        const imagePath = this.parentNode.parentNode.childNodes[3].pathname
+        console.log(imagePath)
         fetch('pin', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
-            'pinnedImage': pinnedImage
+          pinnedImage: imagePath
           })
         })
         .then(response => {
-          console.log(response)
           if (response.ok) return response.json()
         })
       .then(data => {
-        console.log(data)
           // window.location.reload(true)
         })
 
@@ -29,7 +25,6 @@ Array.from(pin).forEach(function(element) {
 
 Array.from(thumbUp).forEach(function(element) {
       element.addEventListener('click', function(){
-        console.log('hello')
         const caption = this.parentNode.parentNode.childNodes[5].innerText
         console.log(caption)
         let _id = this.parentNode.childNodes[9].dataset.id
